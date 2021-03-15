@@ -21,6 +21,7 @@ class DicePage extends StatefulWidget {
 
 class _DicePageState extends State<DicePage> {
   int first = 1, second = 6;
+  int score = 7;
   var rng = new Random();
 
   @override
@@ -32,44 +33,65 @@ class _DicePageState extends State<DicePage> {
   void changeValues() {
     first = rng.nextInt(6) + 1;
     second = rng.nextInt(6) + 1;
+    score = first + second;
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            Expanded(
-              // flex: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                // ignore: deprecated_member_use
-                child: FlatButton(
-                  child: Image.asset('images/dice${first}.png'),
-                  onPressed: () {
-                    changeValues();
-                  },
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // ignore: deprecated_member_use
+          RaisedButton(
+            color: Colors.lightBlueAccent,
+            onPressed: () {},
+            child: Text("Total Score is $score !"),
+          ),
+          Row(
+            children: [
+              Expanded(
+                // flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  // ignore: deprecated_member_use
+                  child: FlatButton(
+                    child: Image.asset('images/dice$first.png'),
+                    onPressed: () {
+                      changeValues();
+                    },
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              // flex: 2,++
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                // ignore: deprecated_member_use
-                child: FlatButton(
-                  child: Image.asset('images/dice${second}.png'),
-                  onPressed: () {
-                    changeValues();
-                  },
+              Expanded(
+                // flex: 2,++
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  // ignore: deprecated_member_use
+                  child: FlatButton(
+                    child: Image.asset('images/dice$second.png'),
+                    onPressed: () {
+                      changeValues();
+                    },
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          // ignore: deprecated_member_use
+          RaisedButton(
+            color: Colors.lightBlueAccent,
+            child: Text("Let's Roll!"),
+            onPressed: () {
+              changeValues();
+            },
+          ),
+        ],
       ),
     );
   }
